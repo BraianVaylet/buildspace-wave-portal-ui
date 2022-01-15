@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 import { ethers } from 'ethers'
