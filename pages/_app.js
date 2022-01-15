@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import { ChakraProvider, ColorModeScript, CSSReset } from '@chakra-ui/react'
 import customTheme from '../styles/theme'
 
-
-function MyApp({ Component }) {
+function MyApp ({ Component }) {
   return (
     <ChakraProvider theme={customTheme}>
       <CSSReset />
