@@ -175,7 +175,7 @@ export default function Home () {
       <Head>
         <title>buildsapce-wave-ui</title>
         <meta name="description" content="buildspace-wave-ui with Next.js" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"></link>
       </Head>
 
       <Flex
