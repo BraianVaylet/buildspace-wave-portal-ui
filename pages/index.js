@@ -20,7 +20,7 @@ export default function Home () {
   const [value, setValue] = useState(null) // Valor del input
 
   // Nuestra direccion del contrato que desplegamos.
-  const contractAddress = '0x4A04696010DE8C6007d14846e06FddE76C73c290'
+  const contractAddress = '0xEF0d6ab3487C1f463dD90E3AffBd577494EeA644'
   // Nuestro abi del contrato
   const contractABI = WavePortal.abi
   // random avatares
@@ -273,7 +273,8 @@ export default function Home () {
           </Flex>
             )
           : (
-              total && (
+              total && total > 0
+                ? (
             <>
               <Flex
                 direction={'column'}
@@ -292,7 +293,8 @@ export default function Home () {
                 </Text>
               </Flex>
 
-              {allWaves && allWaves.map(wave => (
+              {allWaves
+                ? allWaves.map(wave => (
                 <Flex
                   key={wave.timestamp.toString()}
                   mt={5}
@@ -324,9 +326,11 @@ export default function Home () {
                     {'> '} {wave.message}
                   </Text>
                 </Flex>
-              ))}
+                ))
+                : <Flex />}
             </>
-              )
+                  )
+                : <Flex />
             )}
       </Flex>
 
