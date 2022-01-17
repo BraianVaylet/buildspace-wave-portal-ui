@@ -2,14 +2,15 @@
 import { useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 import { ethers } from 'ethers'
-import { Button, Flex, Text, useColorMode, IconButton, Icon, Link, Spinner, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, useDisclosure } from '@chakra-ui/react'
+import { Button, Flex, Text, useColorMode, IconButton, Icon, Link, Spinner, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, useDisclosure, useToast } from '@chakra-ui/react'
 import WavePortal from '../utils/WavePortal.json'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
-import { FaLinkedin, FaGithub } from 'react-icons/fa'
+import { FaLinkedin, FaGithub, FaEthereum } from 'react-icons/fa'
 
 export default function Home () {
   const { colorMode, toggleColorMode } = useColorMode()
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const toast = useToast()
   const initialRef = useRef()
   const finalRef = useRef()
 
@@ -20,7 +21,7 @@ export default function Home () {
   const [value, setValue] = useState(null) // Valor del input
 
   // Nuestra direccion del contrato que desplegamos.
-  const contractAddress = '0xEF0d6ab3487C1f463dD90E3AffBd577494EeA644'
+  const contractAddress = '0xef10AE1B845aEC9251c19cc5af7d4dda7424F52D'
   // Nuestro abi del contrato
   const contractABI = WavePortal.abi
   // random avatares
@@ -86,13 +87,12 @@ export default function Home () {
         const signer = provider.getSigner()
         const wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer)
         const waves = await wavePortalContract.getAllWaves()
-        const wavesCleaned = []
-        waves.forEach(wave => {
-          wavesCleaned.push({
+        const wavesCleaned = waves && waves.map(wave => {
+          return {
             address: wave.waver,
             timestamp: new Date(wave.timestamp * 1000),
             message: wave.message
-          })
+          }
         })
         setAllWaves(wavesCleaned)
       } else {
@@ -134,8 +134,9 @@ export default function Home () {
         console.log('Retrieved total wave count...', count.toNumber())
         setTotal(count.toNumber())
 
-        // Ejecute la wave real de su contrato inteligente
-        const waveTxn = await wavePortalContract.wave(value)
+        // Ejecuto la funcion wave del smart-contract (limitando el valor del gas)
+        // Esto lo que hace es que el usuario pague una cantidad fija de gas de 300.000. Y, si no lo usan todo en la transacción, se les reembolsará automáticamente.
+        const waveTxn = await wavePortalContract.wave(value, { gasLimit: 300000 })
         console.log('Mining...', waveTxn.hash)
         setLoader(true)
 
@@ -154,14 +155,51 @@ export default function Home () {
     }
   }
 
+  // Cuando se ejecuta el evento NewWave del SmartContract
+  const onNewWave = (from, timestamp, message) => {
+    console.log('NewWave', from, timestamp, message)
+    setAllWaves(prevState => [
+      ...prevState,
+      {
+        address: from,
+        timestamp: new Date(timestamp * 1000),
+        message: message
+      }
+    ])
+  }
+
+  // Cuando se ejecuta el evento PrizeWon del SmartContract
+  const onPrizeWon = () => {
+    toast({
+      title: 'Congratulations, you earned Ether! 🎉',
+      status: 'success',
+      duration: 9000,
+      isClosable: true
+    })
+  }
+
   useEffect(() => {
     checkIfWalletIsConnected()
     getWaves()
+    getAllWaves()
   }, [])
 
+  // Escucho eventos del smart-contract
   useEffect(() => {
-    getAllWaves()
-  }, [total])
+    let wavePortalContract
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
+      const signer = provider.getSigner()
+      wavePortalContract = new ethers.Contract(contractAddress, contractABI, signer)
+      wavePortalContract.on('NewWave', onNewWave)
+      wavePortalContract.on('PrizeWon', onPrizeWon)
+    }
+    return () => {
+      if (wavePortalContract) {
+        wavePortalContract.off('NewWave', onNewWave)
+      }
+    }
+  }, [])
 
   return (
     <Flex
@@ -421,6 +459,16 @@ export default function Home () {
               ? <MoonIcon w={5} h={5} />
               : <SunIcon w={5} h={5} />
           }
+        />
+        <IconButton
+          mx={5}
+          _hover={{
+            cursor: 'pointer',
+            color: 'pink.100'
+          }}
+          as={Link}
+          href={`https://rinkeby.etherscan.io/address/${contractAddress}`}
+          icon={<Icon as={FaEthereum} w={7} h={7} />}
         />
       </Flex>
     </Flex>
