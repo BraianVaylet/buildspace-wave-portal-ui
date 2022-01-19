@@ -1,8 +1,8 @@
-# 🦄 Wave Portal [UI]
-
 <p align="center" width="300">
    <img align="center" width="200" src="https://raw.githubusercontent.com/BraianVaylet/buildspace-wave-portal-ui/main/public/horn.png" />   
 </p>
+
+# 🦄 Wave Portal [UI]
 
 Proyecto web basado en la web3 desarrollado con **[Next.js](https://nextjs.org/)** y **[ChakraUI](https://chakra-ui.com/)**. En esta aplicación los usuarios podrán dejar un mensaje que será almacenado dentro de la blockchain, para esto es necesario primero autenticarse usando la wallet **[Metamask](https://metamask.io/)** y configurandola para usar la red de prueba de **[Rinkeby](https://www.rinkeby.io/#stats)**.
 
