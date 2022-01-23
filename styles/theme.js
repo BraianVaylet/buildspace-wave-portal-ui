@@ -9,7 +9,8 @@ const customTheme = extendTheme({
       'html, body': {
         fontSize: 'md',
         color: props.colorMode === 'dark' ? 'white' : 'gray.600',
-        lineHeight: 'tall'
+        lineHeight: 'tall',
+        scrollBehavior: 'smooth'
       },
       a: {
         color: props.colorMode === 'dark' ? 'teal.300' : 'teal.500'

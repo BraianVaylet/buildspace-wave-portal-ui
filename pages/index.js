@@ -2,10 +2,13 @@
 import { useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 import { ethers } from 'ethers'
-import { Button, Flex, Text, useColorMode, IconButton, Icon, Link, Spinner, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, useDisclosure, useToast } from '@chakra-ui/react'
+import { Button, Flex, Text, useColorMode, IconButton, Icon, Link, Spinner, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, FormControl, FormLabel, Input, ModalFooter, useDisclosure, useToast, Image, Tooltip } from '@chakra-ui/react'
 import WavePortal from '../utils/WavePortal.json'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import { FaLinkedin, FaGithub, FaEthereum } from 'react-icons/fa'
+import LOGO from '../public/horn.png'
+
+console.log('LOGO', LOGO)
 
 export default function Home () {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -223,6 +226,7 @@ export default function Home () {
         w={'50%'}
       >
         <Text
+          id='top'
           as='h1'
           fontSize={'3xl'}
           fontWeight={900}
@@ -426,50 +430,69 @@ export default function Home () {
         w={'50%'}
         mt={100}
       >
-        <IconButton
-          mx={5}
-          _hover={{
-            cursor: 'pointer',
-            color: 'pink.100'
-          }}
-          as={Link}
-          href={'https://www.linkedin.com/in/braianvaylet/'}
-          icon={<Icon as={FaLinkedin} w={7} h={7} />}
-
-        />
-        <IconButton
-          mx={5}
-          _hover={{
-            cursor: 'pointer',
-            color: 'pink.100'
-          }}
-          as={Link}
-          href={'https://github.com/BraianVaylet'}
-          icon={<Icon as={FaGithub} w={7} h={7} />}
-        />
-        <IconButton
-          mx={5}
-          _hover={{
-            cursor: 'pointer',
-            color: 'pink.100'
-          }}
-          onClick={toggleColorMode}
-          icon={
-            colorMode === 'light'
-              ? <MoonIcon w={5} h={5} />
-              : <SunIcon w={5} h={5} />
-          }
-        />
-        <IconButton
-          mx={5}
-          _hover={{
-            cursor: 'pointer',
-            color: 'pink.100'
-          }}
-          as={Link}
-          href={`https://rinkeby.etherscan.io/address/${contractAddress}`}
-          icon={<Icon as={FaEthereum} w={7} h={7} />}
-        />
+        <Tooltip hasArrow label={'linkedin'} bg={'gray.900'} color={'white'}>
+          <IconButton
+            mx={5}
+            _hover={{
+              cursor: 'pointer',
+              color: 'pink.100'
+            }}
+            as={Link}
+            href={'https://www.linkedin.com/in/braianvaylet/'}
+            icon={<Icon as={FaLinkedin} w={7} h={7} />}
+          />
+        </Tooltip>
+        <Tooltip hasArrow label={'github'} bg={'gray.900'} color={'white'}>
+          <IconButton
+            mx={5}
+            _hover={{
+              cursor: 'pointer',
+              color: 'pink.100'
+            }}
+            as={Link}
+            href={'https://github.com/BraianVaylet'}
+            icon={<Icon as={FaGithub} w={7} h={7} />}
+          />
+        </Tooltip>
+        <Tooltip hasArrow label={'Volver al inicio'} bg={'gray.900'} color={'white'}>
+          <IconButton
+            mx={5}
+            _hover={{
+              cursor: 'pointer',
+              color: 'pink.100'
+            }}
+            as={Link}
+            href={'#top'}
+            icon={<Image src={LOGO.src} alt='logo wave-portal' w={7} h={7} />}
+          />
+        </Tooltip>
+        <Tooltip hasArrow label={'Cambiar theme'} bg={'gray.900'} color={'white'}>
+          <IconButton
+            mx={5}
+            _hover={{
+              cursor: 'pointer',
+              color: 'pink.100'
+            }}
+            onClick={toggleColorMode}
+            icon={
+              colorMode === 'light'
+                ? <MoonIcon w={5} h={5} />
+                : <SunIcon w={5} h={5} />
+            }
+          />
+        </Tooltip>
+        <Tooltip hasArrow label={'Contrato'} bg={'gray.900'} color={'white'}>
+          <IconButton
+            mx={5}
+            _hover={{
+              cursor: 'pointer',
+              color: 'pink.100'
+            }}
+            as={Link}
+            href={`https://rinkeby.etherscan.io/address/${contractAddress}`}
+            icon={<Icon as={FaEthereum} w={7} h={7} />}
+          />
+        </Tooltip>
       </Flex>
     </Flex>
   )
