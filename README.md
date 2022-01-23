@@ -1,4 +1,18 @@
+<p align="center" width="200">
+   <img align="center" width="100" src="https://raw.githubusercontent.com/BraianVaylet/buildspace-wave-portal-ui/main/public/horn.png" />   
+</p>
+
 # 🦄 Wave Portal [UI]
+
+El proyecto se encuentra deployado en Vercel para que puedan verlo e interactuar con él, toda crítica o comentario se agradece, pueden acceder a la demo en el siguiente link:
+
+### **[VER DEMO](https://buildspace-wave-portal-ui.vercel.app/)**
+
+Este proyecto consume un smart-contract desarrollado en Solidity utilizando el framework HardHat, pueden encontrar el repositorio en el siguiente link:
+
+### [REPO SMART-CONTRACT](https://github.com/BraianVaylet/buildspace-wave-portal)
+
+## Sobre el proyecto:
 
 Proyecto web basado en la web3 desarrollado con **[Next.js](https://nextjs.org/)** y **[ChakraUI](https://chakra-ui.com/)**. En esta aplicación los usuarios podrán dejar un mensaje que será almacenado dentro de la blockchain, para esto es necesario primero autenticarse usando la wallet **[Metamask](https://metamask.io/)** y configurandola para usar la red de prueba de **[Rinkeby](https://www.rinkeby.io/#stats)**.
 
