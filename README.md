@@ -24,7 +24,7 @@ Este fue un proyecto con fin 100% académico mientras realizaba los cursos de la
 
 Pueden probar la aplicación ingresando al siguiente link: **[Wave Portal 🦄](https://buildspace-wave-portal-ui.vercel.app/)**
 
-La aplicación está conectándose a un smart-contract desarrollado con la tecnología **[Solidity](https://solidity-es.readthedocs.io/es/latest/#)**, pueden revisar su repo [aquí](https://github.com/BraianVaylet/buildspace-wave-portal) y el contrato desplegado en la **rinkeby.etherscan** [aquí](https://rinkeby.etherscan.io/address/0xef10AE1B845aEC9251c19cc5af7d4dda7424F52D)
+La aplicación está conectándose a un smart-contract desarrollado con la tecnología **[Solidity](https://solidity-es.readthedocs.io/es/latest/#)**, pueden revisar su repo [aquí](https://github.com/BraianVaylet/buildspace-wave-portal)
 
 ## Algunas capturas del proyecto:
 
